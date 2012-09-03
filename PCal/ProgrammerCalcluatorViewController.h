@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ProgrammerCalcluatorViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *labelDisplay;
 
 @end

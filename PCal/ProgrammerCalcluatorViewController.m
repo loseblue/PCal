@@ -8,27 +8,29 @@
 
 #import "ProgrammerCalcluatorViewController.h"
 
-@interface ProgrammerCalcluatorViewController ()
-
-@end
-
 @implementation ProgrammerCalcluatorViewController
+@synthesize labelDisplay = _labelDisplay;
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
+bool firstInputFlag = FALSE;
 
-- (void)viewDidUnload
+- (IBAction)buttonDigit:(UIButton *)sender
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    // NSString *myDigital = sender.currentTitle;
+    
+    // NSLog(@"digit pressed is %@", myDigital);
+    
+    if (FALSE == firstInputFlag)
+    {
+        if (![sender.currentTitle isEqual:@"0"])
+        {
+            self.labelDisplay.text = sender.currentTitle;
+            firstInputFlag = TRUE;
+        }
+    }
+    else
+    {
+        self.labelDisplay.text = [self.labelDisplay.text stringByAppendingString:sender.currentTitle];
+    }
 }
 
 @end
