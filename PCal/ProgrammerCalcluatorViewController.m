@@ -13,7 +13,9 @@
 
 bool firstInputFlag = FALSE;
 NSInteger tempDigital = 0;
-NSString *tempOperation;
+
+//tempOperation 1:+ 2:-
+NSInteger tempOperation = 0;
 
 - (IBAction)buttonDigit:(UIButton *)sender
 {
@@ -41,38 +43,49 @@ NSString *tempOperation;
     
     if([sender.currentTitle isEqual:@"="])
     {
-        if ([tempOperation isEqual:@"+"])
+        if (1 == tempOperation)//+
         {
             tempDigital = tempDigital + [self.labelDisplay.text integerValue];
-            // NSLog(@"digital 2 is %d,%d",tempDigital,[self.labelDisplay.text integerValue]);
         }
-        else if ([tempOperation isEqual:@"-"])
+        else if (2 == tempOperation) //-
         {
             tempDigital = tempDigital - [self.labelDisplay.text integerValue];
         }
         
         self.labelDisplay.text = [NSString stringWithFormat:@"%d",tempDigital];
-        tempOperation = nil;
+        tempOperation = 0;
         tempDigital = 0;
-        firstInputFlag = FALSE;
+    }
+    else
+    {
+        if (0 == tempOperation)
+        {
+            tempDigital = [self.labelDisplay.text integerValue];
+        }
+        else if (1 == tempOperation)
+        {
+            tempDigital = tempDigital + [self.labelDisplay.text integerValue];
+        }
+        else if (2 == tempOperation)
+        {
+            tempDigital = tempDigital - [self.labelDisplay.text integerValue];
+        }
         
-        return;
+        self.labelDisplay.text = [NSString stringWithFormat:@"%d",tempDigital];
+        if ([sender.currentTitle isEqual:@"+"])
+            tempOperation = 1;
+        else if ([sender.currentTitle isEqual:@"-"])
+            tempOperation = 2;
     }
-    else if ([sender.currentTitle isEqual:@"+"])
-    {
-        tempDigital = tempDigital + [self.labelDisplay.text integerValue];
-        // NSLog(@"digital 2 is %d,%d",tempDigital,[self.labelDisplay.text integerValue]);
-    }
-    else if ([sender.currentTitle isEqual:@"-"])
-    {
-        tempDigital = tempDigital - [self.labelDisplay.text integerValue];
-    }
-    
-    tempOperation = sender.currentTitle;
-    self.labelDisplay.text = @"0";
     firstInputFlag = FALSE;
-    
-    
+}
+
+- (IBAction)buttonClean:(UIButton *)sender
+{
+    tempOperation = 0;
+    tempDigital = 0;
+    firstInputFlag = FALSE;
+    self.labelDisplay.text = @"0";
 }
 
 @end
